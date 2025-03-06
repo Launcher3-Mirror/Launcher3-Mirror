@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  merge:
+  sync-main:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,10 +19,27 @@ jobs:
           git config --global user.name "Launcher3 Syncer"
           git config --global user.email "launcher3@syncer.com"
 
-      - name: Run merge script
+      - name: Run sync script
         run: |
           cd .github/workflows/
           chmod +x sync.sh
           ./sync.sh github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  tags-sync:
+   runs-on: ubuntu-latest
+   permissions:
+     contents: write
+     
+   steps:
+      - uses: actions/checkout@v4
+      - name: Fetch tags from upstream repository
+        run: |
+          git remote add upstream https://android.googlesource.com/platform/packages/apps/Launcher3
+          git fetch upstream --tags
+          
+      - name: Push matching tags to the remote
+        run: |
+          # Match tags like android-14.0.0_r66 and push them.
+          git tag | grep 'android-[0-9]*.[0-9]*.[0-9]*_r[0-9]*' | xargs --no-run-if-empty git push origin
