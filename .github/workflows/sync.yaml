@@ -1,0 +1,28 @@
+name: Merge Upstream into Main
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Launcher3 Syncer"
+          git config --global user.email "launcher3@syncer.com"
+
+      - name: Run merge script
+        run: |
+          cd .github/workflows/
+          chmod +x sync.sh
+          ./sync.sh github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
