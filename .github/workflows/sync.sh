@@ -13,7 +13,7 @@ echo "Fetching $UPSTREAM..."
 git fetch $UPSTREAM
 
 echo "Merging $UPSTREAM in $BRANCH..."
-git merge $UPSTREAM/$BRANCH
+git merge $UPSTREAM/$BRANCH --allow-unrelated-histories
 
 echo "Making push in $ORIGIN.."
 git push $ORIGIN $BRANCH
