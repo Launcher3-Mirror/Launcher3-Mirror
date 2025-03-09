@@ -1,4 +1,4 @@
-name: Merge Upstream into Main
+name: Sync 
 
 on:
   schedule:
