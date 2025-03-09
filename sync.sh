@@ -13,7 +13,7 @@ echo "Fetching $UPSTREAM..."
 git fetch $UPSTREAM
 
 echo "Resetting $BRANCH to $UPSTREAM/$BRANCH..."
-git checkout $BRANCH
+git checkout $BRANCH sync.sh
 git reset --hard $UPSTREAM/$BRANCH
 
 echo "Making push in $ORIGIN..."
