@@ -12,8 +12,9 @@ fi
 echo "Fetching $UPSTREAM..."
 git fetch $UPSTREAM
 
-echo "Merging $UPSTREAM in $BRANCH..."
-git merge $UPSTREAM/$BRANCH # --allow-unrelated-histories
+echo "Resetting $BRANCH to $UPSTREAM/$BRANCH..."
+git checkout $BRANCH
+git reset --hard $UPSTREAM/$BRANCH
 
-echo "Making push in $ORIGIN.."
-git push $ORIGIN $BRANCH
+echo "Making push in $ORIGIN..."
+git push $ORIGIN $BRANCH --force
