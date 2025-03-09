@@ -21,7 +21,6 @@ jobs:
 
       - name: Run sync script
         run: |
-          cd .github/workflows/
           chmod +x sync.sh
           ./sync.sh github
         env:
